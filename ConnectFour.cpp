@@ -343,6 +343,8 @@ void CreateAssets() noexcept
 		D2D1::HwndRenderTargetProperties(Window, size),
 		&renderTarget));
 
+	renderTarget->SetDpi(96, 96);
+
 	FATAL_ON_FAIL(renderTarget->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 0.0f), &brush));
 	FATAL_ON_FAIL(renderTarget->CreateSolidColorBrush(D2D1::ColorF(0.0f, 0.0f, 1.0f), &PlayerBrush));
 	FATAL_ON_FAIL(renderTarget->CreateSolidColorBrush(D2D1::ColorF(1.0f, 0.0f, 0.0f), &CPUBrush));
@@ -933,6 +935,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
 void handleDpiChange() noexcept
 {
+	SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 	UINT dpi = GetDpiForSystem();
 
 	windowWidth = 6 * dpi;
